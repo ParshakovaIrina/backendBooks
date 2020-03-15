@@ -27,15 +27,26 @@ public class MyController {
 
     @CrossOrigin()
     @PostMapping("/registration")
-    public MyUser addUser(@RequestBody MyUser user) {
-            MyUser newUser = userRepo.save(user);
-            return newUser;
+    public boolean addUser(@RequestBody MyUser user) {
+        MyUser addUser = userRepo.findByLogin(user.getLogin());
+        if (addUser==null) {
+            userRepo.save(user);
+            return true;
+        } else {
+            return false;
+        }
     }
+
     @CrossOrigin()
     @PostMapping("/login")
     public MyUser loginUser(@RequestBody MyUser user) {
-        MyUser newUser = userRepo.save(user);
-        return newUser;
+       MyUser tyu = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
+        if (tyu==null){
+            return null;
+        }else{
+            return tyu;
+        }
+
     }
 
     public static void main(String[] args) {
@@ -63,6 +74,7 @@ public class MyController {
         List<Books> books = booksRepo.findAll();
         return books;
     }
+
     @CrossOrigin()
     @GetMapping("/admin-page")
     public List<MyUser> getUsers() {
@@ -72,12 +84,13 @@ public class MyController {
 
     @CrossOrigin()
     @DeleteMapping("/detail/{id}")
-    public  List<Books> deleteBook(@PathVariable Long id) {
+    public List<Books> deleteBook(@PathVariable Long id) {
         Books book = booksRepo.findById(id).get();
         booksRepo.delete(book);
         List<Books> booki = booksRepo.findAll();
-      return booki;
+        return booki;
     }
+
     @CrossOrigin()
     @PutMapping("/detail/{id}")
     public Books updateBook(@PathVariable(value = "id") Long bookId,
@@ -91,7 +104,6 @@ public class MyController {
         book.setYear(bookDetail.getYear());
         final Books updateBook = booksRepo.save(book);
         return updateBook;
-
     }
 
     @GetMapping("/main")
@@ -115,9 +127,31 @@ public class MyController {
 
     @CrossOrigin()
     @PostMapping("books")
-    public Books add( @RequestBody Books bookDetail) {
+    public Books add(@RequestBody Books bookDetail) {
         Books NewBook = booksRepo.save(bookDetail);
         return NewBook;
+    }
+
+    @CrossOrigin()
+    @DeleteMapping("admin-page/{id}")
+    public List<MyUser> deleteUser(@PathVariable Long id) {
+        MyUser user = userRepo.findById(id).get();
+        userRepo.delete(user);
+        List<MyUser> users = userRepo.findAll();
+        return users;
+    }
+
+    @CrossOrigin()
+    @PutMapping("admin-page/{id}")
+    public List<MyUser> updateUser(@PathVariable Long id,
+                                   @Valid @RequestBody MyUser userDetail) {
+        MyUser user = userRepo.findById(id).get();
+        user.setLogin(userDetail.getLogin());
+        user.setPassword(userDetail.getPassword());
+        user.setRole(userDetail.getRole());
+        userRepo.save(user);
+        List<MyUser> users = userRepo.findAll();
+        return users;
     }
 
     @PostMapping("filter")
