@@ -1,26 +1,44 @@
 package com.example.libr.domain;
 
-import java.sql.Time;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
 public class Session {
-    private Long id;
-    private Time myTime;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long idSession;
+    private Long idUser;
+    private LocalDateTime MyTime;
 
-    public Session() { };
-
-    public Long getId() {
-        return id;
+    public Session() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Session(Long idSession,Long idUser, LocalDateTime MyTime){
+        this.idSession=idSession;
+        this.idUser=idUser;
+        this.MyTime=MyTime;
+    }
+    public Long getIdSession() {
+        return idSession;
     }
 
-    public Time getMyTime() {
-        return myTime;
+    public void setIdSession(Long idSession) {
+        this.idSession = idSession;
+    }
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setMyTime(Time myTime) {
-        this.myTime = myTime;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
+    }
+
+    public LocalDateTime getMyTime() {
+        return MyTime;
+    }
+
+    public void setMyTime(LocalDateTime MyTime) {
+        this.MyTime = MyTime;
     }
 }

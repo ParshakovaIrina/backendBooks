@@ -3,18 +3,19 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.17">
     <root id="1">
       <ServerVersion>12.2</ServerVersion>
-      <StartupTime>1583910588</StartupTime>
+      <StartupTime>1584295988</StartupTime>
     </root>
     <database id="2" parent="1" name="lib">
       <ObjectId>16406</ObjectId>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>631</IntrospectionStateNumber>
+      <IntrospectionStateNumber>835</IntrospectionStateNumber>
       <Current>1</Current>
     </database>
     <database id="3" parent="1" name="postgres">
       <ObjectId>13318</ObjectId>
       <Comment>default administrative connection database</Comment>
       <Owner>postgres</Owner>
+      <IntrospectionStateNumber>837</IntrospectionStateNumber>
     </database>
     <role id="4" parent="1" name="pg_execute_server_program">
       <ObjectId>4571</ObjectId>
@@ -65,7 +66,7 @@
       <Comment>standard public schema</Comment>
       <StateNumber>276</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>632</IntrospectionStateNumber>
+      <IntrospectionStateNumber>836</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <access-method id="16" parent="2" name="heap">
@@ -243,128 +244,166 @@
       <Owner>postgres</Owner>
       <StateNumber>504</StateNumber>
     </table>
-    <table id="40" parent="15" name="usr">
+    <table id="40" parent="15" name="session">
+      <ObjectId>16465</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>788</StateNumber>
+    </table>
+    <table id="41" parent="15" name="usr">
       <ObjectId>16439</ObjectId>
       <Owner>postgres</Owner>
       <StateNumber>630</StateNumber>
     </table>
-    <column id="41" parent="38" name="id">
+    <column id="42" parent="38" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>557</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="42" parent="38" name="author">
+    <column id="43" parent="38" name="author">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>557</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="43" parent="38" name="description">
+    <column id="44" parent="38" name="description">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>557</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="44" parent="38" name="genre">
+    <column id="45" parent="38" name="genre">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>557</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="45" parent="38" name="name">
+    <column id="46" parent="38" name="name">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>557</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="46" parent="38" name="year">
+    <column id="47" parent="38" name="year">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>557</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="47" parent="38" name="books_pkey">
+    <index id="48" parent="38" name="books_pkey">
       <ObjectId>16458</ObjectId>
       <StateNumber>557</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="48" parent="38" name="books_pkey">
+    <key id="49" parent="38" name="books_pkey">
       <ObjectId>16459</ObjectId>
       <StateNumber>557</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>books_pkey</UnderlyingIndexName>
     </key>
-    <column id="49" parent="39" name="id">
+    <column id="50" parent="39" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>504</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="50" parent="39" name="tag">
+    <column id="51" parent="39" name="tag">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>504</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="51" parent="39" name="text">
+    <column id="52" parent="39" name="text">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>504</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="52" parent="39" name="message_pkey">
+    <index id="53" parent="39" name="message_pkey">
       <ObjectId>16413</ObjectId>
       <StateNumber>504</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="53" parent="39" name="message_pkey">
+    <key id="54" parent="39" name="message_pkey">
       <ObjectId>16414</ObjectId>
       <StateNumber>504</StateNumber>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>message_pkey</UnderlyingIndexName>
     </key>
-    <column id="54" parent="40" name="id">
+    <column id="55" parent="40" name="id_session">
+      <Position>1</Position>
+      <DataType>bigint|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>788</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="56" parent="40" name="my_time">
+      <Position>2</Position>
+      <DataType>timestamp|0s</DataType>
+      <StateNumber>788</StateNumber>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="57" parent="40" name="id_user">
+      <Position>3</Position>
+      <DataType>bigint|0s</DataType>
+      <StateNumber>788</StateNumber>
+      <TypeId>20</TypeId>
+    </column>
+    <index id="58" parent="40" name="session_pkey">
+      <ObjectId>16468</ObjectId>
+      <StateNumber>788</StateNumber>
+      <ColNames>id_session</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+    </index>
+    <key id="59" parent="40" name="session_pkey">
+      <ObjectId>16469</ObjectId>
+      <StateNumber>788</StateNumber>
+      <ColNames>id_session</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>session_pkey</UnderlyingIndexName>
+    </key>
+    <column id="60" parent="41" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>529</StateNumber>
       <TypeId>20</TypeId>
     </column>
-    <column id="55" parent="40" name="password">
+    <column id="61" parent="41" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>529</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="56" parent="40" name="login">
+    <column id="62" parent="41" name="login">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>599</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="57" parent="40" name="role">
+    <column id="63" parent="41" name="role">
       <Position>7</Position>
       <DataType>varchar|0s</DataType>
       <StateNumber>630</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="58" parent="40" name="usr_pkey">
+    <index id="64" parent="41" name="usr_pkey">
       <ObjectId>16445</ObjectId>
       <StateNumber>529</StateNumber>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Primary>1</Primary>
     </index>
-    <key id="59" parent="40" name="usr_pkey">
+    <key id="65" parent="41" name="usr_pkey">
       <ObjectId>16446</ObjectId>
       <StateNumber>529</StateNumber>
       <ColNames>id</ColNames>

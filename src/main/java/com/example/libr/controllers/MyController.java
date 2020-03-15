@@ -3,14 +3,17 @@ package com.example.libr.controllers;
 import com.example.libr.domain.Books;
 import com.example.libr.domain.Message;
 import com.example.libr.domain.MyUser;
+import com.example.libr.domain.Session;
 import com.example.libr.repos.BooksRepo;
 import com.example.libr.repos.MessageRepo;
+import com.example.libr.repos.SessionRepo;
 import com.example.libr.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -24,12 +27,14 @@ public class MyController {
     private BooksRepo booksRepo;
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private SessionRepo sessionRepo;
 
     @CrossOrigin()
     @PostMapping("/registration")
     public boolean addUser(@RequestBody MyUser user) {
         MyUser addUser = userRepo.findByLogin(user.getLogin());
-        if (addUser==null) {
+        if (addUser == null) {
             userRepo.save(user);
             return true;
         } else {
@@ -40,11 +45,22 @@ public class MyController {
     @CrossOrigin()
     @PostMapping("/login")
     public MyUser loginUser(@RequestBody MyUser user) {
-       MyUser tyu = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
-        if (tyu==null){
+        MyUser tyu = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
+        if (tyu == null) {
             return null;
-        }else{
-            return tyu;
+        } else {
+            Session mySess = sessionRepo.findByIdUser(tyu.getId());
+            if (mySess == null) {
+                Session session = new Session();
+                session.setIdUser(tyu.getId());
+                session.setMyTime(LocalDateTime.now().plusMinutes(2));
+                sessionRepo.save(session);
+                return tyu;
+            } else {
+                mySess.setMyTime(LocalDateTime.now().plusMinutes(2));
+                sessionRepo.save(mySess);
+                return tyu;
+            }
         }
 
     }
@@ -53,26 +69,37 @@ public class MyController {
         SpringApplication.run(MyController.class, args);
     }
 
-    @GetMapping("/")
-    public String greeting()
-    //   @RequestParam(name = "name", required = false, defaultValue = "World") String name,
-    //  Map<String, Object> model
-    {
-        /*    model.put("name", name);*/
-        return "greeting";
-    }
-
-    @GetMapping("/detail/{id}")
-    public Optional<Books> getBook(@PathVariable Long id) {
-        Optional<Books> book = booksRepo.findById(id);
-        return book;
+    @CrossOrigin()
+    @GetMapping("/detail/{idUser}/{idBook}")
+    public Optional<Books> getBook(@PathVariable Long idUser, @PathVariable Long idBook) {
+        if (checkSession(idUser)) {
+            Optional<Books> book = booksRepo.findById(idBook);
+            return book;
+        } else {
+            return null;
+        }
     }
 
     @CrossOrigin()
-    @GetMapping("/books")
-    public List<Books> getBooks() {
-        List<Books> books = booksRepo.findAll();
-        return books;
+    @GetMapping("/books/{idUser}")
+    public List<Books> getBooks(@PathVariable Long idUser) {
+        if (checkSession(idUser)) {
+            List<Books> books = booksRepo.findAll();
+            return books;
+        } else {
+            return null;
+        }
+    }
+
+    @CrossOrigin()
+    @PostMapping("books/{idUser}")
+    public Books add(@PathVariable Long idUser, @RequestBody Books bookDetail) {
+        if (checkSession(idUser)) {
+            Books NewBook = booksRepo.save(bookDetail);
+            return NewBook;
+        } else {
+            return null;
+        }
     }
 
     @CrossOrigin()
@@ -92,18 +119,22 @@ public class MyController {
     }
 
     @CrossOrigin()
-    @PutMapping("/detail/{id}")
-    public Books updateBook(@PathVariable(value = "id") Long bookId,
+    @PutMapping("/detail/{idUser}/{idBook}")
+    public Books updateBook(@PathVariable Long idUser, @PathVariable(value = "idBook") Long bookId,
                             @Valid @RequestBody Books bookDetail) {
-        Books book = booksRepo.findById(bookId).get();
-        book.setName(bookDetail.getName());
-        book.setAuthor(bookDetail.getAuthor());
-        book.setDescription(bookDetail.getDescription());
-        book.setGenre(bookDetail.getGenre());
-        book.setGenre(bookDetail.getGenre());
-        book.setYear(bookDetail.getYear());
-        final Books updateBook = booksRepo.save(book);
-        return updateBook;
+        if (checkSession(idUser)) {
+            Books book = booksRepo.findById(bookId).get();
+            book.setName(bookDetail.getName());
+            book.setAuthor(bookDetail.getAuthor());
+            book.setDescription(bookDetail.getDescription());
+            book.setGenre(bookDetail.getGenre());
+            book.setGenre(bookDetail.getGenre());
+            book.setYear(bookDetail.getYear());
+            final Books updateBook = booksRepo.save(book);
+            return updateBook;
+        } else {
+            return null;
+        }
     }
 
     @GetMapping("/main")
@@ -126,13 +157,6 @@ public class MyController {
     }
 
     @CrossOrigin()
-    @PostMapping("books")
-    public Books add(@RequestBody Books bookDetail) {
-        Books NewBook = booksRepo.save(bookDetail);
-        return NewBook;
-    }
-
-    @CrossOrigin()
     @DeleteMapping("admin-page/{id}")
     public List<MyUser> deleteUser(@PathVariable Long id) {
         MyUser user = userRepo.findById(id).get();
@@ -141,6 +165,12 @@ public class MyController {
         return users;
     }
 
+    @CrossOrigin()
+    @DeleteMapping("/books/{idUser}")
+    public void deleteSession(@PathVariable Long idUser) {
+        Session session = sessionRepo.findByIdUser(idUser);
+        sessionRepo.delete(session);
+    }
     @CrossOrigin()
     @PutMapping("admin-page/{id}")
     public List<MyUser> updateUser(@PathVariable Long id,
@@ -166,4 +196,22 @@ public class MyController {
         return "main";
 
     }
+
+    public Boolean checkSession(Long idUser) {
+        Session mySession = sessionRepo.findByIdUser(idUser);
+        if (mySession == null) {
+            return false;
+        } else {
+            LocalDateTime MyData = mySession.getMyTime();
+            LocalDateTime NowData = LocalDateTime.now();
+            if (MyData.compareTo(NowData) > 0) {
+                return true;
+            } else {
+                sessionRepo.delete(mySession);
+                return false;
+            }
+        }
+    }
+
+    ;
 }
