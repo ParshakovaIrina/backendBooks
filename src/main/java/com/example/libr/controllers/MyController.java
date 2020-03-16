@@ -1,13 +1,7 @@
 package com.example.libr.controllers;
 
-import com.example.libr.domain.Books;
-import com.example.libr.domain.Message;
-import com.example.libr.domain.MyUser;
-import com.example.libr.domain.Session;
-import com.example.libr.repos.BooksRepo;
-import com.example.libr.repos.MessageRepo;
-import com.example.libr.repos.SessionRepo;
-import com.example.libr.repos.UserRepo;
+import com.example.libr.domain.*;
+import com.example.libr.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +23,8 @@ public class MyController {
     private UserRepo userRepo;
     @Autowired
     private SessionRepo sessionRepo;
+    @Autowired
+    private RolesRepo rolesRepo;
 
     @CrossOrigin()
     @PostMapping("/registration")
@@ -78,6 +74,14 @@ public class MyController {
         } else {
             return null;
         }
+    }
+
+    @CrossOrigin()
+    @GetMapping("/roles/{idUser}")
+    public Roles getRole(@PathVariable Long idUser) {
+        MyUser my = userRepo.findById(idUser).get();
+        Roles myRole = rolesRepo.findByRole(my.getRole());
+        return myRole;
     }
 
     @CrossOrigin()
@@ -171,6 +175,7 @@ public class MyController {
         Session session = sessionRepo.findByIdUser(idUser);
         sessionRepo.delete(session);
     }
+
     @CrossOrigin()
     @PutMapping("admin-page/{id}")
     public List<MyUser> updateUser(@PathVariable Long id,
