@@ -1,15 +1,19 @@
 package com.example.libr.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 public class Roles {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idRole;
     private String role;
     private Boolean editBook;
@@ -21,16 +25,16 @@ public class Roles {
     }
 
     public Roles(Long idRole, String role,
-             Boolean editBook,Boolean deleteBook,Boolean addBook,Boolean admin){
-        this.idRole=idRole;
-        this.role=role;
-        this.editBook=editBook;
-        this.deleteBook=deleteBook;
-        this.addBook=addBook;
-        this.admin=admin;
+                 Boolean editBook, Boolean deleteBook, Boolean addBook, Boolean admin) {
+        this.idRole = idRole;
+        this.role = role;
+        this.editBook = editBook;
+        this.deleteBook = deleteBook;
+        this.addBook = addBook;
+        this.admin = admin;
     }
 
-    public Long getIdRole() {
+   /* public Long getIdRole() {
         return idRole;
     }
 
@@ -76,5 +80,5 @@ public class Roles {
 
     public void setAdmin(Boolean admin) {
         this.admin = admin;
-    }
+    }*/
 }

@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin()
 @RestController
@@ -25,107 +24,163 @@ public class MyController {
     private SessionRepo sessionRepo;
     @Autowired
     private RolesRepo rolesRepo;
+    @Autowired
+    private RelationRepo relationsRepo;
 
-    @CrossOrigin()
-    @PostMapping("/registration")
-    public boolean addUser(@RequestBody MyUser user) {
-        MyUser addUser = userRepo.findByLogin(user.getLogin());
-        if (addUser == null) {
-            userRepo.save(user);
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    @CrossOrigin()
+//    @PostMapping("/registration")
+//    public boolean addUser(@RequestBody MyUser user) {
+//        MyUser addUser = userRepo.findByLogin(user.getLogin());
+//        if (addUser == null) {
+//            userRepo.save(user);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
-    @CrossOrigin()
-    @PostMapping("/login")
-    public MyUser loginUser(@RequestBody MyUser user) {
-        MyUser tyu = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
-        if (tyu == null) {
-            return null;
-        } else {
-            Session mySess = sessionRepo.findByIdUser(tyu.getId());
-            if (mySess == null) {
-                Session session = new Session();
-                session.setIdUser(tyu.getId());
-                session.setMyTime(LocalDateTime.now().plusMinutes(2));
-                sessionRepo.save(session);
-                return tyu;
-            } else {
-                mySess.setMyTime(LocalDateTime.now().plusMinutes(2));
-                sessionRepo.save(mySess);
-                return tyu;
-            }
-        }
-
-    }
+//    @CrossOrigin()
+//    @PostMapping("/login")
+//    public MyUser loginUser(@RequestBody MyUser user) {
+//        MyUser tyu = userRepo.findByLoginAndPassword(user.getLogin(), user.getPassword());
+//        if (tyu == null) {
+//            return null;
+//        } else {
+//            Session mySess = sessionRepo.findByIdUser(tyu.getId());
+//            if (mySess == null) {
+//                Session session = new Session();
+//                session.setIdUser(tyu.getId());
+//                session.setMyTime(LocalDateTime.now().plusMinutes(2));
+//                sessionRepo.save(session);
+//                return tyu;
+//            } else {
+//                mySess.setMyTime(LocalDateTime.now().plusMinutes(2));
+//                sessionRepo.save(mySess);
+//                return tyu;
+//            }
+//        }
+//
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(MyController.class, args);
     }
 
+
     @CrossOrigin()
     @GetMapping("/detail/{idUser}/{idBook}")
-    public Optional<Books> getBook(@PathVariable Long idUser, @PathVariable Long idBook) {
+    public BooksDto getBook(@PathVariable Long idUser, @PathVariable Long idBook) {
         if (checkSession(idUser)) {
-            Optional<Books> book = booksRepo.findById(idBook);
-            return book;
+            Books book = booksRepo.findById(idBook).get();
+            BooksDto userBook = convert(book);
+            return userBook;
         } else {
             return null;
         }
     }
 
-    @CrossOrigin()
-    @GetMapping("/roles/{idUser}")
-    public Roles getRole(@PathVariable Long idUser) {
-        MyUser my = userRepo.findById(idUser).get();
-        Roles myRole = rolesRepo.findByRole(my.getRole());
-        return myRole;
-    }
+//    @CrossOrigin()
+//    @GetMapping("/roles/{idUser}")
+//    public Roles getRole(@PathVariable Long idUser) {
+//        MyUser my = userRepo.findById(idUser).get();
+//        Roles myRole = rolesRepo.findByRole(my.getRole());
+//        return myRole;
+//    }
 
     @CrossOrigin()
     @GetMapping("/books/{idUser}")
-    public List<Books> getBooks(@PathVariable Long idUser) {
+    public List<BooksDto> getBooks(@PathVariable Long idUser) {
         if (checkSession(idUser)) {
             List<Books> books = booksRepo.findAll();
-            return books;
+            List<BooksDto> r = new ArrayList<>();
+            for (Books t : books) {
+                BooksDto uio = convert(t);
+                r.add(uio);
+            }
+            return r;
+            // List <BooksDto> uio= convert(books);
         } else {
             return null;
         }
     }
+
 
     @CrossOrigin()
     @PostMapping("books/{idUser}")
-    public Books add(@PathVariable Long idUser, @RequestBody Books bookDetail) {
+    public List<BooksDto> add(@PathVariable Long idUser, @RequestBody Books bookDetail) {
         if (checkSession(idUser)) {
-            Books NewBook = booksRepo.save(bookDetail);
-            return NewBook;
+            booksRepo.save(bookDetail);
+            List<Books> books = booksRepo.findAll();
+            List<BooksDto> r = new ArrayList<>();
+            for (Books t : books) {
+                BooksDto uio = convert(t);
+                r.add(uio);
+            }
+            Message newMessage = new Message();
+            newMessage.setLogin("admin");
+            newMessage.setText("Новая книга "+bookDetail.getName());
+            messageRepo.save(newMessage);
+            return r;
         } else {
             return null;
         }
     }
 
     @CrossOrigin()
-    @GetMapping("/admin-page")
-    public List<MyUser> getUsers() {
-        List<MyUser> users = userRepo.findAll();
-        return users;
+    @PostMapping("message/{idUser}")
+    public List<Message> addMessage(@PathVariable Long idUser, @RequestBody String message) {
+        if (checkSession(idUser)) {
+            Message newMessage = new Message();
+            MyUser user = (userRepo.findById(idUser).get());
+            newMessage.setLogin(user.getLogin());
+            newMessage.setText(message);
+            messageRepo.save(newMessage);
+            List<Message> messages = messageRepo.findAll();
+            return messages;
+        } else {
+            return null;
+        }
     }
+    @CrossOrigin()
+    @GetMapping("message/{idUser}")
+    public List<Message> showMessage(@PathVariable Long idUser) {
+        if (checkSession(idUser)) {
+            List<Message> messages = messageRepo.findAll();
+            return messages;
+        } else {
+            return null;
+        }
+    }
+
+//    @CrossOrigin()
+//    @GetMapping("/admin-page")
+//    public List<MyUser> getUsers() {
+//        List<MyUser> users = userRepo.findAll();
+//        return users;
+//    }
 
     @CrossOrigin()
     @DeleteMapping("/detail/{id}")
-    public List<Books> deleteBook(@PathVariable Long id) {
-        Books book = booksRepo.findById(id).get();
-        booksRepo.delete(book);
-        List<Books> booki = booksRepo.findAll();
-        return booki;
+    public List<BooksDto> deleteBook(@PathVariable Long id) {
+        List<BooksDto> booksDto = new ArrayList<>();
+        Books myBook = booksRepo.findById(id).get();
+        List<Relations> booksRelations = relationsRepo.findAllByBooksId(id);
+        for (Relations bookRelations : booksRelations) {
+            relationsRepo.delete(bookRelations);
+        }
+        booksRepo.delete(myBook);
+        List<Books> books = booksRepo.findAll();
+        for (Books book : books) {
+            BooksDto bookDto = convert(book);
+            booksDto.add(bookDto);
+        }
+        return booksDto;
     }
 
     @CrossOrigin()
     @PutMapping("/detail/{idUser}/{idBook}")
-    public Books updateBook(@PathVariable Long idUser, @PathVariable(value = "idBook") Long bookId,
-                            @Valid @RequestBody Books bookDetail) {
+    public BooksDto updateBook(@PathVariable Long idUser, @PathVariable(value = "idBook") Long bookId,
+                               @Valid @RequestBody Books bookDetail) {
         if (checkSession(idUser)) {
             Books book = booksRepo.findById(bookId).get();
             book.setName(bookDetail.getName());
@@ -135,39 +190,26 @@ public class MyController {
             book.setGenre(bookDetail.getGenre());
             book.setYear(bookDetail.getYear());
             final Books updateBook = booksRepo.save(book);
-            return updateBook;
+            final BooksDto updateBookDto = convert(updateBook);
+            Message newMessage = new Message();
+            newMessage.setLogin("admin");
+            newMessage.setText("Книга "+book.getName()+" обновлена");
+            messageRepo.save(newMessage);
+            return updateBookDto;
         } else {
             return null;
         }
     }
 
-    @GetMapping("/main")
-    public String main(Map<String, Object> model) {
 
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
-        Iterable<Books> books = booksRepo.findAll();
-        model.put("books", books);
-        return "main";
-    }
-
-    @PostMapping("main")
-    public String main(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
-        messageRepo.save(message);
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
-        return "main";
-    }
-
-    @CrossOrigin()
-    @DeleteMapping("admin-page/{id}")
-    public List<MyUser> deleteUser(@PathVariable Long id) {
-        MyUser user = userRepo.findById(id).get();
-        userRepo.delete(user);
-        List<MyUser> users = userRepo.findAll();
-        return users;
-    }
+//    @CrossOrigin()
+//    @DeleteMapping("admin-page/{id}")
+//    public List<MyUser> deleteUser(@PathVariable Long id) {
+//        MyUser user = userRepo.findById(id).get();
+//        userRepo.delete(user);
+//        List<MyUser> users = userRepo.findAll();
+//        return users;
+//    }
 
     @CrossOrigin()
     @DeleteMapping("/books/{idUser}")
@@ -177,29 +219,46 @@ public class MyController {
     }
 
     @CrossOrigin()
-    @PutMapping("admin-page/{id}")
-    public List<MyUser> updateUser(@PathVariable Long id,
-                                   @Valid @RequestBody MyUser userDetail) {
-        MyUser user = userRepo.findById(id).get();
-        user.setLogin(userDetail.getLogin());
-        user.setPassword(userDetail.getPassword());
-        user.setRole(userDetail.getRole());
-        userRepo.save(user);
-        List<MyUser> users = userRepo.findAll();
-        return users;
+    @DeleteMapping("/books/{idUser}/{idBook}")
+    public List<BooksDto> deleteRelation(@PathVariable Long idUser, @PathVariable Long idBook) {
+        Relations relation = relationsRepo.findByUseridAndBooksId(idUser, idBook);
+        relationsRepo.delete(relation);
+        List<Relations> relations = relationsRepo.findAllByUserid(idUser);
+        List<BooksDto> userBooksDto = new ArrayList<>();
+        for (Relations newRelation : relations) {
+            Books userBook = newRelation.getBooks();
+            BooksDto userBookDto = convert(userBook);
+            userBooksDto.add(userBookDto);
+        }
+        return userBooksDto;
     }
 
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
-        if ((filter != null) && !(filter.isEmpty())) {
-            messages = messageRepo.findByTag(filter);
-        } else {
-            messages = messageRepo.findAll();
-        }
-        model.put("messages", messages);
-        return "main";
+//    @CrossOrigin()
+//    @PutMapping("admin-page/{id}")
+//    public List<MyUser> updateUser(@PathVariable Long id,
+//                                   @Valid @RequestBody MyUser userDetail) {
+//        MyUser user = userRepo.findById(id).get();
+//        user.setLogin(userDetail.getLogin());
+//        user.setPassword(userDetail.getPassword());
+//        user.setRole(userDetail.getRole());
+//        userRepo.save(user);
+//        List<MyUser> users = userRepo.findAll();
+//        return users;
+//    }
 
+
+    @CrossOrigin()
+    @PostMapping("/addInMyLibr/{idUser}")
+    public boolean addInMyLibr(@PathVariable Long idUser, @RequestBody Long bookId) {
+        Relations chekRelation = relationsRepo.findByUseridAndBooksId(idUser, bookId);
+        if (chekRelation == null) {
+            Relations yu = new Relations();
+            Books y = booksRepo.findById(bookId).get();
+            yu.setUserid(idUser);
+            yu.setBooks(y);
+            relationsRepo.save(yu);
+        }
+        return true;
     }
 
     public Boolean checkSession(Long idUser) {
@@ -218,5 +277,30 @@ public class MyController {
         }
     }
 
-    ;
+    @CrossOrigin()
+    @GetMapping("/userLibrary/{idUser}")
+    public List<BooksDto> getUserBooks(@PathVariable Long idUser) {
+        List<Relations> relations = relationsRepo.findAllByUserid(idUser);
+        List<BooksDto> userBooksDto = new ArrayList<>();
+        for (Relations relation : relations) {
+            Books userBook = relation.getBooks();
+            BooksDto userBookDto = convert(userBook);
+            userBooksDto.add(userBookDto);
+        }
+        return userBooksDto;
+    }
+
+    public BooksDto convert(Books book) {
+        BooksDto bookDto = new BooksDto();
+        bookDto.setId(book.getId());
+        bookDto.setAuthor(book.getAuthor());
+        bookDto.setName(book.getName());
+        bookDto.setYear(book.getYear());
+        bookDto.setGenre(book.getGenre());
+        bookDto.setDescription(book.getDescription());
+        bookDto.setImage(book.getImage());
+        return bookDto;
+    }
+
+
 }

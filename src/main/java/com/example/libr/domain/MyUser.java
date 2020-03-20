@@ -1,7 +1,13 @@
 package com.example.libr.domain;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "usr")
 public class MyUser {
@@ -11,9 +17,14 @@ public class MyUser {
     private String login;
     private String password;
     private String role;
+//    @OneToMany(mappedBy = "user",  fetch = FetchType.EAGER)
+//    Set<Relations> relationsUser;
 
-public MyUser(){};
-    public Long getId() {
+    public MyUser() {
+    }
+
+
+  /*  public Long getId() {
         return id;
     }
 
@@ -32,6 +43,7 @@ public MyUser(){};
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -39,10 +51,16 @@ public MyUser(){};
     public void setRole(String role) {
         this.role = role;
     }
+
     public String getRole() {
         return role;
     }
 
+    public Set<Relations> getRelationes() {
+        return relationes;
+    }
 
-
+    public void setRelationes(Set<Relations> relationes) {
+        this.relationes = relationes;
+    }*/
 }

@@ -1,20 +1,11 @@
 package com.example.libr.domain;
 
-import javax.persistence.*;
-import javax.swing.text.JTextComponent;
-import javax.xml.soap.Text;
-import java.awt.*;
-import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.type.descriptor.sql.NVarcharTypeDescriptor;
 
 @Getter
 @Setter
-@Entity
-public class Books {
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+public class BooksDto {
     private Long id;
     private String name;
     private String author;
@@ -22,14 +13,12 @@ public class Books {
     private String genre;
     private String description;
     private String image;
-    @OneToMany(mappedBy = "books",  fetch = FetchType.EAGER)
-    Set<Relations> relations;
-    public Books() {
+
+    public BooksDto() {
     }
-  /*  public Books(String name, String author){
-            this.name=name;
-            this.author=author;
-    }
+
+    ;
+
     public Long getId() {
         return id;
     }
@@ -76,5 +65,5 @@ public class Books {
 
     public void setDescription(String description) {
         this.description = description;
-    }*/
+    }
 }

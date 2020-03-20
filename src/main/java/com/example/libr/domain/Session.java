@@ -1,12 +1,20 @@
 package com.example.libr.domain;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 @Entity
 public class Session {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idSession;
     private Long idUser;
     private LocalDateTime MyTime;
@@ -14,18 +22,20 @@ public class Session {
     public Session() {
     }
 
-    public Session(Long idSession,Long idUser, LocalDateTime MyTime){
-        this.idSession=idSession;
-        this.idUser=idUser;
-        this.MyTime=MyTime;
+    public Session(Long idSession, Long idUser, LocalDateTime MyTime) {
+        this.idSession = idSession;
+        this.idUser = idUser;
+        this.MyTime = MyTime;
     }
-    public Long getIdSession() {
+
+ /*   public Long getIdSession() {
         return idSession;
     }
 
     public void setIdSession(Long idSession) {
         this.idSession = idSession;
     }
+
     public Long getIdUser() {
         return idUser;
     }
@@ -40,5 +50,5 @@ public class Session {
 
     public void setMyTime(LocalDateTime MyTime) {
         this.MyTime = MyTime;
-    }
+    }*/
 }

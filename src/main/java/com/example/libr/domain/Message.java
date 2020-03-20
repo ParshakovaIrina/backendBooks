@@ -1,36 +1,33 @@
 package com.example.libr.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Getter
+@Setter
 @Entity
 public class Message {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
+    private String login;
     private String text;
-    private String tag;
+
     public Message() {
     }
-    public Message(String text, String tag) {
-
-        this.text = text;
-
-        this.tag = tag;
-
-    }
 
 
-
+/*
     public void setText(String text) {
 
         this.text = text;
 
     }
-
 
 
     public String getText() {
@@ -40,13 +37,11 @@ public class Message {
     }
 
 
-
     public Integer getId() {
 
         return id;
 
     }
-
 
 
     public void setId(Integer id) {
@@ -56,7 +51,6 @@ public class Message {
     }
 
 
-
     public String getTag() {
 
         return tag;
@@ -64,10 +58,9 @@ public class Message {
     }
 
 
-
     public void setTag(String tag) {
 
         this.tag = tag;
 
-    }
+    }*/
 }
