@@ -26,6 +26,7 @@ public class UsersController {
     private RolesRepo rolesRepo;
     @Autowired
     private MessageRepo messageRepo;
+
     @CrossOrigin()
     @PostMapping("/registration")
     public boolean addUser(@RequestBody MyUser user) {
@@ -34,7 +35,7 @@ public class UsersController {
             userRepo.save(user);
             Message newMessage = new Message();
             newMessage.setLogin("admin");
-            newMessage.setText("Новый пользователь "+user.getLogin());
+            newMessage.setText("Новый пользователь " + user.getLogin());
             messageRepo.save(newMessage);
             return true;
         } else {
@@ -99,5 +100,12 @@ public class UsersController {
         userRepo.save(user);
         List<MyUser> users = userRepo.findAll();
         return users;
+    }
+
+    @CrossOrigin()
+    @DeleteMapping("/books/{idUser}")
+    public void deleteSession(@PathVariable Long idUser) {
+        Session session = sessionRepo.findByIdUser(idUser);
+        sessionRepo.delete(session);
     }
 }

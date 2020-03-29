@@ -18,54 +18,7 @@
     <option name="HIDDEN_KINDS">
       <set />
     </option>
-    <expand>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="lib: database" type="162271b6:PgImplModel$Database" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="lib: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="lib: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="lib: database" type="162271b6:PgImplModel$Database" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="public: schema" type="983ebcf7:PgImplModel$Schema" />
-        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="lib@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="lib: database" type="162271b6:PgImplModel$Database" />
-        <item name="extensions" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-    </expand>
+    <expand />
     <select />
   </component>
   <component name="FavoritesManager">
@@ -159,6 +112,12 @@
       <workItem from="1584487913115" duration="6217000" />
       <workItem from="1584523408484" duration="22903000" />
       <workItem from="1584646047186" duration="13940000" />
+      <workItem from="1584947485972" duration="3556000" />
+      <workItem from="1585231813631" duration="15673000" />
+      <workItem from="1585314006419" duration="9000" />
+      <workItem from="1585314828153" duration="150000" />
+      <workItem from="1585316546262" duration="6749000" />
+      <workItem from="1585468445284" duration="5841000" />
     </task>
     <servers />
   </component>
@@ -190,38 +149,38 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="325" y="118" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1583945324135" />
-    <state width="1323" height="164" key="GridCell.Tab.0.bottom" timestamp="1584713871769">
+    <state width="1323" height="87" key="GridCell.Tab.0.bottom" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584713871769" />
-    <state width="1323" height="164" key="GridCell.Tab.0.center" timestamp="1584713871768">
+    <state width="1323" height="87" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.0.center" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1584713871768" />
-    <state width="1323" height="164" key="GridCell.Tab.0.left" timestamp="1584713871768">
+    <state width="1323" height="87" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.0.left" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1584713871768" />
-    <state width="1323" height="164" key="GridCell.Tab.0.right" timestamp="1584713871769">
+    <state width="1323" height="87" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.0.right" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1584713871769" />
-    <state width="1323" height="164" key="GridCell.Tab.1.bottom" timestamp="1584713871769">
+    <state width="1323" height="87" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.1.bottom" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1584713871769" />
-    <state width="1323" height="164" key="GridCell.Tab.1.center" timestamp="1584713871769">
+    <state width="1323" height="87" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.1.center" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1584713871769" />
-    <state width="1323" height="164" key="GridCell.Tab.1.left" timestamp="1584713871769">
+    <state width="1323" height="87" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.1.left" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1584713871769" />
-    <state width="1323" height="164" key="GridCell.Tab.1.right" timestamp="1584713871769">
+    <state width="1323" height="87" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
+    <state width="1323" height="87" key="GridCell.Tab.1.right" timestamp="1585482526716">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state width="1323" height="164" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1584713871769" />
+    <state width="1323" height="87" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1585482526716" />
     <state width="1323" height="220" key="GridCell.Tab.2.bottom" timestamp="1583445262388">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -266,10 +225,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="557" y="116" width="468" height="495" key="com.intellij.database.view.ui.DbObjectDialog/0.0.1366.728@0.0.1366.728" timestamp="1583249591266" />
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1584646215526">
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog" timestamp="1585468447432">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1584646215526" />
+    <state x="391" y="191" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1585468447432" />
     <state x="390" y="0" width="586" height="728" key="find.popup" timestamp="1583447104037">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
