@@ -30,7 +30,8 @@ public class BooksController {
     private QueueRepo queueRepo;
     @Autowired
     private UserRepo userRepo;
-
+    @Autowired
+    private GameRepo gameRepo;
 
     @CrossOrigin()
     @GetMapping("/detail/{idUser}/{idBook}")
@@ -214,6 +215,12 @@ public class BooksController {
         }
         return userBooksDto;
     }
+    @CrossOrigin()
+    @PostMapping("/game-book")
+    public GameBook getPage(@RequestBody Integer id) {
+        GameBook page = gameRepo.findById(id).get();
+        return page;
+    }
 
     public BooksDto convert(Books book) {
         BooksDto bookDto = new BooksDto();
@@ -230,7 +237,7 @@ public class BooksController {
     public static final List<SseEmitter> emitters = Collections.synchronizedList(new ArrayList<>());
 
 
-    public void sendSseEventsToUI(MyUser notification) { //your model class
+    public void sendSseEventsToUI(MyUser notification) {
         List<SseEmitter> sseEmitterListToRemove = new ArrayList<>();
         SseController.emitters.forEach((SseEmitter emitter) -> {
             try {
